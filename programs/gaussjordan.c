@@ -6,43 +6,60 @@ int main(){
     scanf("%d",&size);
     float a[size][size], x[size];
     //argumented matrix creation;
-    for(int i=1;i<=size;i++){
-        for(int j=1;j<=size+1;j++){
+    for(int i=0;i<size;i++){
+        for(int j=0;j<size+1;j++){
             printf("a[%d][%d]",i,j);
             scanf("%f", &a[i][j]);
         }   
     }
     //applying gauss elimination method:
-    int div=0;
-    for(int i=1;i<=size;i++){
-        if(a[i][i]==0){
-            printf("wrong input");
-        }
-        for(int k=1;k<=size;k++){
-            div = a[i][k]/a[i][i];
-            if(i!=k){
-                a[i][k] = a[i][k]-div;
-            }
-        }
-    }
-    //printing matrix;
-    for(int i=1;i<=size;i++){
-        x[i] = a[i][i+1]/a[i][i];
-    }
-
-    for(int i=1;i<=size;i++){
-        printf("%0.3f \n", x[i]);
-    }
-    //convert to uper triangular matrix;
-    // for(int i=0;i<size;i++){
-    //     for(int j=0;j<size;j++){
-    //         if(j>i){
-    //             int ratio = a[j][i]/a[i][i];
-    //             for(int k=0;k<size+1;k++){
-    //                 a[j][k] = a[j][k]-(ratio * a[i][k]);
-    //             }
+    // int div=0;
+    // for(int i=1;i<=size;i++){
+    //     if(a[i][i]==0){
+    //         printf("wrong input");
+    //     }
+    //     for(int k=1;k<=size;k++){
+    //         div = a[i][k]/a[i][i];
+    //         if(i!=k){
+    //             a[i][k] = a[i][k]-div;
     //         }
     //     }
     // }
+    //printing matrix;
+    // for(int i=1;i<=size;i++){
+    //     x[i] = a[i][i+1]/a[i][i];
+    // }
+
+    // for(int i=1;i<=size;i++){
+    //     printf("%0.3f \n", x[i]);
+    // }
+    //convert to uper triangular matrix;
+    for(int i=0;i<size;i++){
+        for(int j=0;j<size;j++){
+            if(j>i){
+                int ratio = a[j][i]/a[i][i];
+                for(int k=0;k<size+1;k++){
+                    a[j][k] = a[j][k]-(ratio * a[i][k]);
+                }
+            }
+        }
+    }
+    //  for(int i=0;i<size;i++){
+    //     x[i] = a[i][i+1]/a[i][i];
+    // }
+
+    // for(int i=1;i<=size;i++){
+    //     printf("[  %0.3f  ] \n", x[i]);
+    // }
+    for(int i = size-2;i>=0;i--){
+        int sum = 0;
+        for(int j=i+1;j<size;j++){
+            sum +=a[i][j]*x[j];
+        }
+        x[i] = (a[i][size]-sum)/a[i][i];
+    }
+    for(int i=1;i<=size;i++){
+        printf("[  %0.3f  ] \n", x[i]);
+    }
     
 }
